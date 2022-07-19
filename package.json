@@ -4,5 +4,9 @@
   "main": "index.js",
   "repository": "https://github.com/vinisaveg/clean-node-ipfs-upload.git",
   "author": "vinisaveg",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^18.0.6",
+    "typescript": "^4.7.4"
+  }
 }
