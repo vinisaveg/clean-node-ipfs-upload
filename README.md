@@ -1,0 +1,3 @@
+# clean-node-ipfs-upload
+
+An ipfs upload API with Nodejs, Typescript, TDD, Clean Architecture, Design Patterns, SOLID and more...
