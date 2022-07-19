@@ -5,6 +5,9 @@
   "repository": "https://github.com/vinisaveg/clean-node-ipfs-upload.git",
   "author": "vinisaveg",
   "license": "MIT",
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
   "devDependencies": {
     "@types/node": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.30.7",
