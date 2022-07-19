@@ -1,0 +1,8 @@
+{
+  "name": "clean-node-ipfs-upload",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/vinisaveg/clean-node-ipfs-upload.git",
+  "author": "vinisaveg",
+  "license": "MIT"
+}
