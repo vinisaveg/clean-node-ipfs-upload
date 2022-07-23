@@ -9,7 +9,9 @@
     "build": "tsc -p tsconfig.json",
     "test": "jest --passWithNoTests",
     "eslint:check": "yarn eslint --quiet .",
-    "eslint:fix": "yarn eslint --debug --fix-dry-run ."
+    "eslint:fix": "yarn eslint --debug --fix-dry-run .",
+    "prettier:check": "yarn prettier --check .",
+    "prettier:fix": "yarn prettier --write ."
   },
   "devDependencies": {
     "@types/jest": "^28.1.6",
