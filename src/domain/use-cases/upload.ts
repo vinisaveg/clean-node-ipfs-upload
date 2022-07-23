@@ -5,7 +5,7 @@ export interface Upload {
 }
 
 export type UploadParams = {
-  data?: Array<any>;
+  data: Array<any>;
 };
 
 export type UploadResult = {
