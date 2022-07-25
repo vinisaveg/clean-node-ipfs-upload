@@ -16,6 +16,21 @@ describe("Upload Use Case", () => {
     expect(uploaderSpy.data).toEqual({ data });
   });
 
-  it.todo("Should throw if Uploader throws");
+  it("Should throw if Uploader throws", () => {
+    const uploaderSpy = new UploaderSpy();
+    const sut = new UploadUseCase(uploaderSpy);
+
+    jest.spyOn(uploaderSpy, "execute").mockImplementationOnce(() => {
+      throw new Error();
+    });
+
+    const file = Buffer.from("test", "base64");
+    const data = [file];
+
+    const promise = sut.execute({ data });
+
+    expect(promise).rejects.toThrow();
+  });
+
   it.todo("Should return correct data on Upload execution");
 });
