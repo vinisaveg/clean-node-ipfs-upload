@@ -5,18 +5,10 @@ export class UploadUseCase implements Upload {
   constructor(private readonly uploader: Uploader) {}
 
   async execute(data: UploadParams): Promise<UploadResult> {
-    await this.uploader.execute(data);
+    const result = await this.uploader.execute(data);
 
-    return Promise.resolve({
-      files: [
-        {
-          name: "test",
-          size: 100,
-          extension: ".test",
-          cid: "test",
-          path: "test",
-        },
-      ],
-    });
+    return {
+      files: result,
+    };
   }
 }
