@@ -40,5 +40,13 @@ describe("Upload Use Case", () => {
     expect(promise).rejects.toThrow();
   });
 
-  it.todo("Should return correct data on Upload execution");
+  it("Should return correct data on Upload execution", async () => {
+    const { sut, uploaderSpy } = makeSut();
+
+    const result = await sut.execute(mockUploadParams());
+
+    expect(result).toEqual({
+      files: uploaderSpy.result,
+    });
+  });
 });

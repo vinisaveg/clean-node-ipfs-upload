@@ -3,15 +3,15 @@ import {
   UploaderParams,
   UploaderResult,
 } from "data/protocols/uploader";
+import { mockUploaderResult } from "../../../../test/mocks/uploader/mock-uploader-result";
 
 export class UploaderSpy implements Uploader {
   data: UploaderParams;
+  result: UploaderResult;
 
   async execute(data: UploaderParams): Promise<UploaderResult> {
     this.data = data;
-    return Promise.resolve({
-      cid: "test",
-      path: "test",
-    });
+    this.result = mockUploaderResult();
+    return Promise.resolve(this.result);
   }
 }
