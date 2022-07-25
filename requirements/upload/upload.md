@@ -37,7 +37,7 @@
 
 ### Exception - Given API Token is Invalid
 
-1. The system returns an Error HTTP Response 400 if the given API Token is invalid.
+1. The system returns an Error HTTP Response 403 if the given API Token is invalid.
 
 ### Exception - Invalid Data
 
