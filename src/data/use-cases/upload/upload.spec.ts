@@ -3,10 +3,24 @@ import { UploadUseCase } from "./upload";
 
 import { Buffer } from "node:buffer";
 
+type SutTypes = {
+  uploaderSpy: UploaderSpy;
+  sut: UploadUseCase;
+};
+
+const makeSut = (): SutTypes => {
+  const uploaderSpy = new UploaderSpy();
+  const sut = new UploadUseCase(uploaderSpy);
+
+  return {
+    uploaderSpy,
+    sut,
+  };
+};
+
 describe("Upload Use Case", () => {
   it("Should call Uploader with correct data", async () => {
-    const uploaderSpy = new UploaderSpy();
-    const sut = new UploadUseCase(uploaderSpy);
+    const { sut, uploaderSpy } = makeSut();
 
     const file = Buffer.from("test", "base64");
     const data = [file];
@@ -17,8 +31,7 @@ describe("Upload Use Case", () => {
   });
 
   it("Should throw if Uploader throws", () => {
-    const uploaderSpy = new UploaderSpy();
-    const sut = new UploadUseCase(uploaderSpy);
+    const { sut, uploaderSpy } = makeSut();
 
     jest.spyOn(uploaderSpy, "execute").mockImplementationOnce(() => {
       throw new Error();
