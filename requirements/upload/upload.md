@@ -25,6 +25,12 @@
 **And** the internal system fails <br>
 **Then** the system should aware him of the failure
 
+### Scenario 4
+
+**Given** a User valid API token <br>
+**When** he tries to upload more than 5 files <br>
+**Then** the system should aware him of files limit reached
+
 ## Acceptance tests
 
 1. The system receives a HTTP Post Request.
@@ -43,6 +49,10 @@
 
 2. The system returns an Error HTTP Response 400 if the user data is invalid (files).
 
+### Exception - Files Limit Reached
+
+3. The system returns an Error HTTP Response 400 if the user tries to upload more than 5 files.
+
 ### Exception - Failure on Uploading Files
 
-3. The system returns an Error HTTP Response 500 if it fails on uploading the files.
+4. The system returns an Error HTTP Response 500 if it fails on uploading the files.
