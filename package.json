@@ -8,6 +8,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "jest --passWithNoTests",
+    "test:ci": "jest --coverage",
     "eslint:check": "yarn eslint --quiet .",
     "eslint:fix": "yarn eslint --debug --fix-dry-run .",
     "prettier:check": "yarn prettier --check .",
