@@ -1,7 +1,6 @@
 import { UploaderSpy } from "../test/uploader-spy";
 import { UploadUseCase } from "./upload";
-
-import { Buffer } from "node:buffer";
+import { mockUploadParams } from "../../../../test/mocks/upload/mock-upload-params";
 
 type SutTypes = {
   uploaderSpy: UploaderSpy;
@@ -22,12 +21,11 @@ describe("Upload Use Case", () => {
   it("Should call Uploader with correct data", async () => {
     const { sut, uploaderSpy } = makeSut();
 
-    const file = Buffer.from("test", "base64");
-    const data = [file];
+    const data = mockUploadParams();
 
-    await sut.execute({ data });
+    await sut.execute(data);
 
-    expect(uploaderSpy.data).toEqual({ data });
+    expect(uploaderSpy.data).toEqual(data);
   });
 
   it("Should throw if Uploader throws", () => {
@@ -37,10 +35,7 @@ describe("Upload Use Case", () => {
       throw new Error();
     });
 
-    const file = Buffer.from("test", "base64");
-    const data = [file];
-
-    const promise = sut.execute({ data });
+    const promise = sut.execute(mockUploadParams());
 
     expect(promise).rejects.toThrow();
   });
