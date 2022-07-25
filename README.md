@@ -23,3 +23,9 @@ Build the application:
 Run the unit tests:
 
     yarn test
+
+## Development :gear:
+
+Configuring husky and git hooks
+
+    npx husky install
