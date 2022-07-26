@@ -2,6 +2,10 @@
 
 A ipfs upload API with Nodejs, Typescript, TDD, Clean Architecture, Design Patterns, SOLID and more...
 
+<div align="center">
+    <img src="./test/fixtures/files/test-file.gif" alt="Example of an uploaded file">
+</div>
+
 ## Installing :construction_worker:
 
 Clone this repo:
