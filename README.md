@@ -16,6 +16,13 @@ Install dependencies:
 
     yarn install
 
+## Setup
+
+Create an **.env** file on root with the following keys:
+
+    PINATA_API_KEY=
+    PINATA_API_SECRET=
+
 ## Running :runner:
 
 Build the application:
