@@ -33,3 +33,7 @@ Run the unit tests:
 Configuring husky and git hooks
 
     npx husky install
+
+## Example file uploaded
+
+    https://ipfs.io/ipfs/QmbFso5VCnTJ8e9r96TZrKLTdrvJ1BqF1L1wp1kERgTQMP
