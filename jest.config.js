@@ -7,6 +7,9 @@ module.exports = {
     ".+\\.ts$": "ts-jest",
   },
   verbose: true,
-  collectCoverageFrom: ["<rootDir>/src/**/*.ts"],
+  collectCoverageFrom: [
+    "<rootDir>/src/**/*.ts",
+    "!<rootDir>/src/infra/uploader/pinata/utils/pinata-helper.ts",
+  ],
   coverageDirectory: "coverage",
 };
