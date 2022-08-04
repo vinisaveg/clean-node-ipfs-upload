@@ -36,5 +36,7 @@ describe("Pinata Uploader", () => {
     const result = await sut.execute(uploaderParams);
 
     expect(result[0]).toHaveProperty("cid", "IpfsHash");
+    expect(result[0]).toHaveProperty("size", 100);
+    expect(result[0]).toHaveProperty("path", `ipfs.io/ipfs/IpfsHash`);
   });
 });
