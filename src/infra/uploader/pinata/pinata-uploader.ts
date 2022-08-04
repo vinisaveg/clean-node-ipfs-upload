@@ -7,16 +7,20 @@ import { PinataHelper } from "./utils/pinata-helper";
 
 export class PinataUploader implements Uploader {
   async execute(params: UploaderParams): Promise<UploaderResult> {
-    const result = await PinataHelper.upload(params.data[0]);
+    const uploaderResult: UploaderResult = [];
 
-    return Promise.resolve([
-      {
-        name: "test-file",
+    params.data.forEach(async (file) => {
+      const result = await PinataHelper.upload(file.buffer);
+
+      uploaderResult.push({
+        name: file.name,
+        extension: file.extension,
         size: result.PinSize,
-        extension: ".gif",
-        path: `ipfs.io/ipfs/${result.IpfsHash}`,
         cid: result.IpfsHash,
-      },
-    ]);
+        path: `ipfs.io/ipfs/${result.IpfsHash}`,
+      });
+    });
+
+    return uploaderResult;
   }
 }
