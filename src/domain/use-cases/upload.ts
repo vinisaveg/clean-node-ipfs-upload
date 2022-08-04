@@ -1,3 +1,4 @@
+import { File } from "domain/entities/file";
 import { FileUploaded } from "domain/entities/file-uploaded";
 
 export interface Upload {
@@ -5,7 +6,7 @@ export interface Upload {
 }
 
 export type UploadParams = {
-  data: Array<any>;
+  data: Array<File>;
 };
 
 export type UploadResult = {
