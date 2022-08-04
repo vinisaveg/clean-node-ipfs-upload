@@ -5,7 +5,16 @@ import { faker } from "@faker-js/faker";
 
 export const mockUploadParams = (): UploadParams => {
   const file = Buffer.from(faker.random.word(), "base64");
-  const data = [file];
+  const uploadParams: UploadParams = {
+    data: [
+      {
+        name: faker.random.word(),
+        extension: faker.random.alpha(3),
+        size: Number(faker.random.numeric(3)),
+        buffer: file,
+      },
+    ],
+  };
 
-  return { data };
+  return uploadParams;
 };

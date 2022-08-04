@@ -1,8 +1,7 @@
 import { PinataUploader } from "./pinata-uploader";
+import { mockUploaderParams } from "../../../../test/mocks/uploader/mock-uploader-params";
 
 import { PinataPinResponse } from "@pinata/sdk";
-import { createReadStream } from "fs";
-import path from "path";
 
 jest.mock("./utils/pinata-helper.ts", () => ({
   PinataHelper: {
@@ -20,11 +19,7 @@ describe("Pinata Uploader", () => {
   it("Should call execute with correct data", async () => {
     const sut = new PinataUploader();
 
-    const testFilePath = path.resolve("./test/fixtures/files/test-file.gif");
-    const testFile = createReadStream(testFilePath);
-    const uploaderParams = {
-      data: [testFile],
-    };
+    const uploaderParams = await mockUploaderParams();
 
     const pinataUploaderSpy = jest.spyOn(sut, "execute");
 
@@ -36,11 +31,7 @@ describe("Pinata Uploader", () => {
   it("Should return correct uploaded data", async () => {
     const sut = new PinataUploader();
 
-    const testFilePath = path.resolve("./test/fixtures/files/test-file.gif");
-    const testFile = createReadStream(testFilePath);
-    const uploaderParams = {
-      data: [testFile],
-    };
+    const uploaderParams = await mockUploaderParams();
 
     const result = await sut.execute(uploaderParams);
 
