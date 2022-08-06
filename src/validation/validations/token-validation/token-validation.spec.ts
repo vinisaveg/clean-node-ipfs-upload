@@ -3,10 +3,24 @@ import { InvalidTokenError } from "../../../presentation/errors/invalid-token-er
 import { TokenValidatorSpy } from "./test/token-validator-spy";
 import { TokenValidation } from "./token-validation";
 
+type SutTypes = {
+  tokenValidator: TokenValidatorSpy;
+  sut: TokenValidation;
+};
+
+const makeSut = (): SutTypes => {
+  const tokenValidator = new TokenValidatorSpy();
+  const sut = new TokenValidation(tokenValidator);
+
+  return {
+    tokenValidator,
+    sut,
+  };
+};
+
 describe("TokenValidation", () => {
   it("Should return null if token is valid", () => {
-    const tokenValidator = new TokenValidatorSpy();
-    const sut = new TokenValidation(tokenValidator);
+    const { sut, tokenValidator } = makeSut();
 
     tokenValidator.result = true;
 
@@ -18,8 +32,7 @@ describe("TokenValidation", () => {
   });
 
   it("Should return an InvalidTokenError if token is invalid", () => {
-    const tokenValidator = new TokenValidatorSpy();
-    const sut = new TokenValidation(tokenValidator);
+    const { sut, tokenValidator } = makeSut();
 
     tokenValidator.result = false;
 
