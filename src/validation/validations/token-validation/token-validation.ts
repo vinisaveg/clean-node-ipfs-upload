@@ -1,4 +1,4 @@
-import { Validation } from "validation/protocols/validation";
+import { Validation } from "presentation/protocols/validation";
 import { TokenValidator } from "validation/protocols/token-validator";
 import { InvalidTokenError } from "../../../presentation/errors/invalid-token-error";
 
