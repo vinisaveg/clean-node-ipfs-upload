@@ -1,46 +1,44 @@
 import { FileValidation } from "./file-validation";
 import { InvalidFileError } from "../../../presentation/errors/invalid-file-error";
 import { FileValidatorSpy } from "./test/file-validator-spy";
+import { mockFile } from "../../../../test/mocks/file/mock-file";
 
-import { readFile } from "fs/promises";
-import path from "path";
+type SutTypes = {
+  fileValidatorSpy: FileValidatorSpy;
+  sut: FileValidation;
+};
+
+const makeSut = (): SutTypes => {
+  const fileValidatorSpy = new FileValidatorSpy();
+  const sut = new FileValidation(fileValidatorSpy);
+
+  return {
+    sut,
+    fileValidatorSpy,
+  };
+};
 
 describe("FileValidation", () => {
-  const testFilePath = path.resolve("./test/fixtures/files/test-file.gif");
-  let testFile: Buffer;
-
-  beforeAll(async () => {
-    testFile = await readFile(testFilePath);
-  });
-
   it("Should return InvalidFileError if file is invalid", async () => {
-    const fileValidatorSpy = new FileValidatorSpy();
-    const sut = new FileValidation(fileValidatorSpy);
+    const { sut, fileValidatorSpy } = makeSut();
 
     fileValidatorSpy.result = false;
 
-    const result = sut.validate({
-      name: "testfile",
-      extension: ".svg",
-      size: 100,
-      buffer: testFile,
-    });
+    const file = await mockFile();
+
+    const result = sut.validate(file);
 
     expect(result).toEqual(new InvalidFileError());
   });
 
   it("Should return null if file is valid", async () => {
-    const fileValidatorSpy = new FileValidatorSpy();
-    const sut = new FileValidation(fileValidatorSpy);
+    const { sut, fileValidatorSpy } = makeSut();
 
     fileValidatorSpy.result = true;
 
-    const result = sut.validate({
-      name: "testfile",
-      extension: ".png",
-      size: 100,
-      buffer: testFile,
-    });
+    const file = await mockFile();
+
+    const result = sut.validate(file);
 
     expect(result).toEqual(null);
   });
