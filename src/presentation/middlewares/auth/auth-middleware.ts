@@ -1,8 +1,8 @@
-import { InvalidTokenError } from "presentation/errors/invalid-token-error";
-import { ServerError } from "presentation/errors/server-error";
-import { HttpResponse } from "presentation/protocols/http";
-import { Middleware } from "presentation/protocols/middleware";
-import { Validation } from "presentation/protocols/validation";
+import { InvalidTokenError } from "../../../presentation/errors/invalid-token-error";
+import { ServerError } from "../../../presentation/errors/server-error";
+import { HttpResponse } from "../../../presentation/protocols/http";
+import { Middleware } from "../../../presentation/protocols/middleware";
+import { Validation } from "../../../presentation/protocols/validation";
 
 export class AuthMiddleware implements Middleware {
   constructor(private readonly tokenValidation: Validation<string>) {}
