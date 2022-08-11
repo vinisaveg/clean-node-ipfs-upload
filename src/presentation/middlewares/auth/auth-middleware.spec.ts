@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import { ServerError } from "../../../presentation/errors/server-error";
 
 import { InvalidTokenError } from "../../../presentation/errors/invalid-token-error";
 import { AuthMiddleware } from "./auth-middleware";
@@ -49,5 +50,22 @@ describe("AuthMiddleware", () => {
     expect(response.statusCode).toBe(403);
     expect(response.body).toEqual(new InvalidTokenError());
   });
-  it.todo("Should return 500 if TokenValidation throws");
+
+  it("Should return 500 if TokenValidation throws", () => {
+    const tokenValidationSpy = new TokenValidationSpy();
+    const sut = new AuthMiddleware(tokenValidationSpy);
+
+    jest.spyOn(tokenValidationSpy, "validate").mockImplementationOnce(() => {
+      throw new Error();
+    });
+
+    const request = {
+      apiToken: faker.random.alphaNumeric(16),
+    };
+
+    const response = sut.handle(request);
+
+    expect(response.statusCode).toBe(500);
+    expect(response.body).toEqual(new ServerError(new Error()));
+  });
 });
