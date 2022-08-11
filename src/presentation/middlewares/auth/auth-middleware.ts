@@ -14,7 +14,7 @@ export class AuthMiddleware implements Middleware {
       if (apiToken) {
         const isValid = this.tokenValidation.validate(apiToken);
 
-        if (isValid) {
+        if (isValid === null) {
           return {
             statusCode: 200,
             body: null,
