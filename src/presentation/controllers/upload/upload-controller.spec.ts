@@ -22,7 +22,17 @@ describe("UploadController", () => {
     });
   });
 
-  it.todo("Should return 200 with correct body if uploaded correctly");
+  it("Should return 200 with correct body if uploaded correctly", async () => {
+    const uploadSpy = new UploadSpy();
+    const sut = new UploadController(uploadSpy);
+
+    const request = mockUploadParams();
+    const response = await sut.handle(request);
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toEqual(uploadSpy.result);
+  });
+
   it.todo("Should return 400 if request is invalid");
   it.todo("Should return 500 if Upload throws");
 });
