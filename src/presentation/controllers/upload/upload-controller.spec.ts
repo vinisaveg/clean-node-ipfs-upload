@@ -75,5 +75,23 @@ describe("UploadController", () => {
     });
   });
 
-  it.todo("Should return 500 if Upload throws");
+  it("Should return 500 if Upload throws", async () => {
+    const uploadSpy = new UploadSpy();
+    const fileValidationSpy = new FileValidationSpy();
+    const sut = new UploadController(uploadSpy, fileValidationSpy);
+
+    jest.spyOn(uploadSpy, "execute").mockImplementationOnce(() => {
+      throw new ServerError(new Error());
+    });
+
+    const response = await sut.handle(mockUploadParams());
+
+    expect(response.statusCode).toBe(500);
+    expect(response.body).toEqual({
+      error: {
+        name: "ServerError",
+        message: "Internal server error.",
+      },
+    });
+  });
 });
