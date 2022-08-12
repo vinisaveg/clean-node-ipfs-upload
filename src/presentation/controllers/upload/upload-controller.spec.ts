@@ -1,11 +1,14 @@
+import { InvalidFileError } from "../../../presentation/errors/invalid-file-error";
 import { mockUploadParams } from "../../../../test/mocks/upload/mock-upload-params";
 import { UploadSpy } from "./test/upload-spy";
 import { UploadController } from "./upload-controller";
+import { FileValidationSpy } from "./test/file-validation-spy";
 
 describe("UploadController", () => {
   it("Should call Upload with correct values", async () => {
     const uploadSpy = new UploadSpy();
-    const sut = new UploadController(uploadSpy);
+    const fileValidationSpy = new FileValidationSpy();
+    const sut = new UploadController(uploadSpy, fileValidationSpy);
 
     const request = mockUploadParams();
     await sut.handle(request);
@@ -24,15 +27,32 @@ describe("UploadController", () => {
 
   it("Should return 200 with correct body if uploaded correctly", async () => {
     const uploadSpy = new UploadSpy();
-    const sut = new UploadController(uploadSpy);
+    const fileValidationSpy = new FileValidationSpy();
+    const sut = new UploadController(uploadSpy, fileValidationSpy);
 
-    const request = mockUploadParams();
-    const response = await sut.handle(request);
+    const response = await sut.handle(mockUploadParams());
 
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual(uploadSpy.result);
   });
 
-  it.todo("Should return 400 if request is invalid");
+  it("Should return 400 if request is invalid", async () => {
+    const uploadSpy = new UploadSpy();
+    const fileValidationSpy = new FileValidationSpy();
+    const sut = new UploadController(uploadSpy, fileValidationSpy);
+
+    fileValidationSpy.result = new InvalidFileError();
+
+    const response = await sut.handle(mockUploadParams());
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toEqual({
+      error: {
+        name: "InvalidFileError",
+        message: "Invalid file(s) provided.",
+      },
+    });
+  });
+
   it.todo("Should return 500 if Upload throws");
 });
