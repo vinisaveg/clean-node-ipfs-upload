@@ -5,11 +5,27 @@ import { UploadController } from "./upload-controller";
 import { FileValidationSpy } from "./test/file-validation-spy";
 import { ServerError } from "../../errors/server-error";
 
+type SutTypes = {
+  uploadSpy: UploadSpy;
+  fileValidationSpy: FileValidationSpy;
+  sut: UploadController;
+};
+
+const makeSut = (): SutTypes => {
+  const uploadSpy = new UploadSpy();
+  const fileValidationSpy = new FileValidationSpy();
+  const sut = new UploadController(uploadSpy, fileValidationSpy);
+
+  return {
+    uploadSpy,
+    fileValidationSpy,
+    sut,
+  };
+};
+
 describe("UploadController", () => {
   it("Should call Upload with correct values", async () => {
-    const uploadSpy = new UploadSpy();
-    const fileValidationSpy = new FileValidationSpy();
-    const sut = new UploadController(uploadSpy, fileValidationSpy);
+    const { uploadSpy, sut } = makeSut();
 
     const request = mockUploadParams();
     await sut.handle(request);
@@ -27,9 +43,7 @@ describe("UploadController", () => {
   });
 
   it("Should return 200 with correct body if uploaded correctly", async () => {
-    const uploadSpy = new UploadSpy();
-    const fileValidationSpy = new FileValidationSpy();
-    const sut = new UploadController(uploadSpy, fileValidationSpy);
+    const { uploadSpy, sut } = makeSut();
 
     const response = await sut.handle(mockUploadParams());
 
@@ -38,9 +52,7 @@ describe("UploadController", () => {
   });
 
   it("Should return 400 if request is invalid", async () => {
-    const uploadSpy = new UploadSpy();
-    const fileValidationSpy = new FileValidationSpy();
-    const sut = new UploadController(uploadSpy, fileValidationSpy);
+    const { fileValidationSpy, sut } = makeSut();
 
     fileValidationSpy.result = new InvalidFileError();
 
@@ -56,9 +68,7 @@ describe("UploadController", () => {
   });
 
   it("Should return 500 if FileValidation throws", async () => {
-    const uploadSpy = new UploadSpy();
-    const fileValidationSpy = new FileValidationSpy();
-    const sut = new UploadController(uploadSpy, fileValidationSpy);
+    const { fileValidationSpy, sut } = makeSut();
 
     jest.spyOn(fileValidationSpy, "validate").mockImplementationOnce(() => {
       throw new ServerError(new Error());
@@ -76,9 +86,7 @@ describe("UploadController", () => {
   });
 
   it("Should return 500 if Upload throws", async () => {
-    const uploadSpy = new UploadSpy();
-    const fileValidationSpy = new FileValidationSpy();
-    const sut = new UploadController(uploadSpy, fileValidationSpy);
+    const { uploadSpy, sut } = makeSut();
 
     jest.spyOn(uploadSpy, "execute").mockImplementationOnce(() => {
       throw new ServerError(new Error());
