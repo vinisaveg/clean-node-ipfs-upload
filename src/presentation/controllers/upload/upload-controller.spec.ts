@@ -1,8 +1,9 @@
-import { InvalidFileError } from "../../../presentation/errors/invalid-file-error";
+import { InvalidFileError } from "../../errors/invalid-file-error";
 import { mockUploadParams } from "../../../../test/mocks/upload/mock-upload-params";
 import { UploadSpy } from "./test/upload-spy";
 import { UploadController } from "./upload-controller";
 import { FileValidationSpy } from "./test/file-validation-spy";
+import { ServerError } from "../../errors/server-error";
 
 describe("UploadController", () => {
   it("Should call Upload with correct values", async () => {
@@ -50,6 +51,26 @@ describe("UploadController", () => {
       error: {
         name: "InvalidFileError",
         message: "Invalid file(s) provided.",
+      },
+    });
+  });
+
+  it("Should return 500 if FileValidation throws", async () => {
+    const uploadSpy = new UploadSpy();
+    const fileValidationSpy = new FileValidationSpy();
+    const sut = new UploadController(uploadSpy, fileValidationSpy);
+
+    jest.spyOn(fileValidationSpy, "validate").mockImplementationOnce(() => {
+      throw new ServerError(new Error());
+    });
+
+    const response = await sut.handle(mockUploadParams());
+
+    expect(response.statusCode).toBe(500);
+    expect(response.body).toEqual({
+      error: {
+        name: "ServerError",
+        message: "Internal server error.",
       },
     });
   });
