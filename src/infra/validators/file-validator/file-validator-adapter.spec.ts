@@ -14,6 +14,17 @@ describe("FileValidator", () => {
     expect(sut.isValid).toHaveBeenCalledWith(file);
   });
 
-  it.todo("Should return false if file is invalid");
+  it("Should return false if file is invalid", async () => {
+    const sut = new FileValidatorAdapter();
+
+    const file = await mockFile();
+    file.name = "";
+    file.extension = ".svg";
+
+    const result = sut.isValid(file);
+
+    expect(result).toBe(false);
+  });
+
   it.todo("Should return true if file is valid");
 });
