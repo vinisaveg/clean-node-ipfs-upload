@@ -22,6 +22,9 @@ Create an **.env** file on root with the following keys:
 
     PINATA_API_KEY=
     PINATA_API_SECRET=
+    JWT_SECRET=
+    APP_PASS=
+    VALID_API_TOKEN=
 
 ## Running :runner:
 
