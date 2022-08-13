@@ -26,5 +26,14 @@ describe("FileValidator", () => {
     expect(result).toBe(false);
   });
 
-  it.todo("Should return true if file is valid");
+  it("Should return true if file is valid", async () => {
+    const sut = new FileValidatorAdapter();
+
+    const file = await mockFile();
+    file.extension = ".gif";
+
+    const result = sut.isValid(file);
+
+    expect(result).toBe(true);
+  });
 });
