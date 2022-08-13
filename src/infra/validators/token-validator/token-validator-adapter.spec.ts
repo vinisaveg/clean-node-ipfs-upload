@@ -12,6 +12,9 @@ jest.mock("jsonwebtoken", () => ({
 }));
 
 describe("TokenValidatorAdapter", () => {
+  const VALID_API_TOKEN = process.env.VALID_API_TOKEN as string;
+  const APP_PASS = process.env.APP_PASS as string;
+
   it("Should validate with correct value", () => {
     const sut = new TokenValidatorAdapter();
 
@@ -34,5 +37,15 @@ describe("TokenValidatorAdapter", () => {
     expect(result).toBe(false);
   });
 
-  it.todo("Should return true if token is valid");
+  it("Should return true if token is valid", () => {
+    const sut = new TokenValidatorAdapter();
+
+    jest.spyOn(jwt, "verify").mockImplementationOnce(() => ({
+      pass: APP_PASS,
+    }));
+
+    const result = sut.isValid(VALID_API_TOKEN);
+
+    expect(result).toBe(true);
+  });
 });
