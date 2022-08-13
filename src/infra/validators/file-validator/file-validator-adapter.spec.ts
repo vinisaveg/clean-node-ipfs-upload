@@ -1,9 +1,13 @@
 import { mockFile } from "../../../../test/mocks/file/mock-file";
 import { FileValidatorAdapter } from "./file-validator-adapter";
 
+const makeSut = (): FileValidatorAdapter => {
+  return new FileValidatorAdapter();
+};
+
 describe("FileValidator", () => {
   it("Should validate with correct value", async () => {
-    const sut = new FileValidatorAdapter();
+    const sut = makeSut();
 
     const file = await mockFile();
 
@@ -15,7 +19,7 @@ describe("FileValidator", () => {
   });
 
   it("Should return false if file is invalid", async () => {
-    const sut = new FileValidatorAdapter();
+    const sut = makeSut();
 
     const file = await mockFile();
     file.name = "";
@@ -27,7 +31,7 @@ describe("FileValidator", () => {
   });
 
   it("Should return true if file is valid", async () => {
-    const sut = new FileValidatorAdapter();
+    const sut = makeSut();
 
     const file = await mockFile();
     file.extension = ".gif";
