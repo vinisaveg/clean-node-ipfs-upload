@@ -5,7 +5,7 @@ const makeSut = (): FileValidatorAdapter => {
   return new FileValidatorAdapter();
 };
 
-describe("FileValidator", () => {
+describe("FileValidatorAdapter", () => {
   it("Should validate with correct value", async () => {
     const sut = makeSut();
 
