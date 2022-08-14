@@ -13,6 +13,7 @@ module.exports = {
     "!<rootDir>/src/main/adapters/**/*.ts",
     "!<rootDir>/src/main/factories/**/*.ts",
     "!<rootDir>/src/main/server/server.ts",
+    "!<rootDir>/src/config/**/*.ts",
     "!<rootDir>/src/main/index.ts",
   ],
   coverageDirectory: "coverage",
