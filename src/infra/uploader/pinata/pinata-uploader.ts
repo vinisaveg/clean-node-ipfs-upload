@@ -9,18 +9,20 @@ export class PinataUploader implements Uploader {
   async execute(params: UploaderParams): Promise<UploaderResult> {
     const uploaderResult: UploaderResult = [];
 
-    params.data.forEach(async (file) => {
-      const result = await PinataHelper.upload(file.buffer);
+    try {
+      const result = await PinataHelper.upload(params.data[0].stream);
 
       uploaderResult.push({
-        name: file.name,
-        extension: file.extension,
+        name: params.data[0].name,
+        extension: params.data[0].extension,
         size: result.PinSize,
         cid: result.IpfsHash,
         path: `ipfs.io/ipfs/${result.IpfsHash}`,
       });
-    });
 
-    return uploaderResult;
+      return uploaderResult;
+    } catch (error: any) {
+      throw new Error(error);
+    }
   }
 }
