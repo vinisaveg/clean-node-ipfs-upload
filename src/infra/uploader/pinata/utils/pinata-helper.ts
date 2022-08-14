@@ -1,4 +1,5 @@
 import pinataSDK, { PinataClient, PinataPinResponse } from "@pinata/sdk";
+import { ReadStream } from "fs";
 
 export class PinataHelper {
   static pinata: PinataClient;
@@ -7,7 +8,7 @@ export class PinataHelper {
     this.pinata = pinataSDK(apiKey, secretApiKey);
   }
 
-  static async upload(file: any): Promise<PinataPinResponse> {
+  static async upload(file: ReadStream): Promise<PinataPinResponse> {
     return await this.pinata.pinFileToIPFS(file);
   }
 }
