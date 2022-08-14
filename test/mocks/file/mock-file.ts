@@ -12,6 +12,6 @@ export const mockFile = async (): Promise<File> => {
     name: faker.random.word(),
     extension: faker.random.alpha(3),
     size: Number(faker.random.numeric(3)),
-    buffer: testFile,
+    stream: testFile,
   };
 };

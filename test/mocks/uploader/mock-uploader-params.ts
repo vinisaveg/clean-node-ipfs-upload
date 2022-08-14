@@ -14,7 +14,7 @@ export const mockUploaderParams = async (): Promise<UploaderParams> => {
         name: faker.random.word(),
         extension: faker.random.alpha(3),
         size: Number(faker.random.numeric(3)),
-        buffer: testFile,
+        stream: testFile,
       },
     ],
   };

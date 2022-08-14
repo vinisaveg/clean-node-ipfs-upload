@@ -11,7 +11,7 @@ export const mockUploadParams = (): UploadParams => {
         name: faker.random.word(),
         extension: faker.random.alpha(3),
         size: Number(faker.random.numeric(3)),
-        buffer: file,
+        stream: file,
       },
     ],
   };

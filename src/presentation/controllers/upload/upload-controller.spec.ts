@@ -36,7 +36,7 @@ describe("UploadController", () => {
           name: request.data[0].name,
           extension: request.data[0].extension,
           size: request.data[0].size,
-          buffer: request.data[0].buffer,
+          stream: request.data[0].stream,
         },
       ],
     });
