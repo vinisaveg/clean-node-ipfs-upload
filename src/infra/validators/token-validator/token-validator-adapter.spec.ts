@@ -48,4 +48,16 @@ describe("TokenValidatorAdapter", () => {
 
     expect(result).toBe(true);
   });
+
+  it("Should return false when TokenValidatorAdapter throws", () => {
+    const sut = new TokenValidatorAdapter();
+
+    jest.spyOn(jwt, "verify").mockImplementationOnce(() => {
+      throw new Error();
+    });
+
+    const result = sut.isValid(VALID_API_TOKEN);
+
+    expect(result).toBe(false);
+  });
 });
