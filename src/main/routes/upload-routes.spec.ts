@@ -46,4 +46,13 @@ describe("Upload Routes", () => {
       ],
     });
   });
+
+  it("Should return 403 on upload if token is not provided", async () => {
+    const response = await request(serverHelper.app)
+      .post("/api/upload")
+      .attach("file", "test/fixtures/files/test-file.gif");
+
+    expect(response.statusCode).toBe(403);
+    expect(response.body).toEqual({ error: { name: "InvalidTokenError" } });
+  });
 });
