@@ -55,4 +55,14 @@ describe("Upload Routes", () => {
     expect(response.statusCode).toBe(403);
     expect(response.body).toEqual({ error: { name: "InvalidTokenError" } });
   });
+
+  it("Should return 403 on upload if token is invalid", async () => {
+    const response = await request(serverHelper.app)
+      .post("/api/upload")
+      .set("Authorization", `Bearer invalid token`)
+      .attach("file", "test/fixtures/files/test-file.gif");
+
+    expect(response.statusCode).toBe(403);
+    expect(response.body).toEqual({ error: { name: "InvalidTokenError" } });
+  });
 });
