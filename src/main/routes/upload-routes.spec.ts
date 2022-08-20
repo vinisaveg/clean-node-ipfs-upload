@@ -65,4 +65,16 @@ describe("Upload Routes", () => {
     expect(response.statusCode).toBe(403);
     expect(response.body).toEqual({ error: { name: "InvalidTokenError" } });
   });
+
+  it("Should return 400 on upload if file is invalid", async () => {
+    const response = await request(serverHelper.app)
+      .post("/api/upload")
+      .set("Authorization", `Bearer ${validApiToken}`)
+      .attach("file", "test/fixtures/files/invalid-test-file.jpg");
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toEqual({
+      error: { name: "InvalidFileError", message: "Invalid file(s) provided." },
+    });
+  });
 });
