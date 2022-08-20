@@ -7,7 +7,7 @@ import express, { Application, Router } from "express";
 export class ServerHelper {
   private server: Server;
   private port: number;
-  app: Application;
+  public app: Application;
 
   constructor(port: number) {
     this.port = port;
@@ -27,10 +27,10 @@ export class ServerHelper {
   private setupRoutes(): void {
     const router = Router();
     uploadRoutes(router);
-    this.app.use(router);
+    this.app.use("/api", router);
   }
 
-  private setupPinata(): void {
+  public setupPinata(): void {
     PinataHelper.connect(
       String(process.env.PINATA_API_KEY),
       String(process.env.PINATA_API_SECRET)
