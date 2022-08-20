@@ -1,5 +1,6 @@
 import { PinataUploader } from "./pinata-uploader";
 import { mockUploaderParams } from "../../../../test/mocks/uploader/mock-uploader-params";
+import { PinataHelper } from "./utils/pinata-helper";
 
 import { PinataPinResponse } from "@pinata/sdk";
 
@@ -38,5 +39,19 @@ describe("Pinata Uploader", () => {
     expect(result[0]).toHaveProperty("cid", "IpfsHash");
     expect(result[0]).toHaveProperty("size", 100);
     expect(result[0]).toHaveProperty("path", `ipfs.io/ipfs/IpfsHash`);
+  });
+
+  it("Should throw if PinataUploader throws", async () => {
+    const sut = new PinataUploader();
+
+    const uploaderParams = await mockUploaderParams();
+
+    jest.spyOn(PinataHelper, "upload").mockImplementationOnce(() => {
+      throw new Error();
+    });
+
+    const promise = sut.execute(uploaderParams);
+
+    expect(promise).rejects.toThrow();
   });
 });
