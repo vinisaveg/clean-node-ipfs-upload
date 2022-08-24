@@ -10,7 +10,7 @@
     "dev": "ts-node-dev --respawn --transpile-only src/main/index.ts",
     "build": "tsc -p tsconfig.json",
     "test": "jest",
-    "test:ci": "jest --coverage",
+    "test:ci": "jest -i --coverage",
     "eslint:check": "yarn eslint --quiet .",
     "eslint:fix": "yarn eslint --debug --fix-dry-run .",
     "prettier:check": "yarn prettier --check .",
