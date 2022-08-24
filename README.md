@@ -32,6 +32,10 @@ Build the application:
 
     yarn build
 
+Start the application:
+
+    yarn start
+
 ## Testing :rotating_light:
 
 Run the unit tests:
@@ -47,3 +51,7 @@ Configuring husky and git hooks
 ## Example file uploaded
 
     https://ipfs.io/ipfs/QmbFso5VCnTJ8e9r96TZrKLTdrvJ1BqF1L1wp1kERgTQMP
+
+Run the app in development mode:
+
+    yarn dev
